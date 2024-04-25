@@ -11,7 +11,6 @@ public class UserInfoServiceImpl implements UserInfoService{
 
 
     private final UserInfoRepository userInfoRepository;
-   //  private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
     @Override
     public void saveUserInfo(UserInfo userInfo) {
