@@ -2,6 +2,7 @@ package com.sagar.baseproject.security.config;
 
 import com.sagar.baseproject.security.service.CustomUserDetailService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -40,6 +41,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
+                    request.requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll();
+                    request.requestMatchers("/static/assets/css/**").permitAll();
                     request.requestMatchers("/super").permitAll();
                     request.requestMatchers("/rest/**").hasAnyRole("SUPER_ADMIN", "ADMIN");
                     request.anyRequest().authenticated();
