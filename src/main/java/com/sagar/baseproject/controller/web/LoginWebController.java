@@ -1,5 +1,6 @@
 package com.sagar.baseproject.controller.web;
 
+import com.sagar.baseproject.common.util.ApplicationHelper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -8,8 +9,16 @@ import org.springframework.web.bind.annotation.GetMapping;
 @RequiredArgsConstructor
 public class LoginWebController {
 
-    @GetMapping("/login")
+    @GetMapping({"", "/", "/login"})
+    public String index() {
+        return "redirect:/base/login";
+    }
+
+    @GetMapping("/base/login")
     public String login() {
+    if (ApplicationHelper.isAuthenticated()){
+        return "redirect:/web/home";
+    }
         return "login";
     }
 

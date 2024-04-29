@@ -1,54 +1,295 @@
-<!DOCTYPE html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.thymeleaf.org/thymeleaf-extras-springsecurity6"
+      layout:decorate="~{/layout_fragments/main_layout}">
+
+<!-- <head th:replace="base :: baseHeader(~{::title},~{::link})"> -->
+<!-- <head> -->
+<!-- <title>The best tutorial ever | FrontBackend</title>
+
+	<link rel="stylesheet" th:href="@{/css/awesome.min.css}">
+	<link rel="stylesheet" th:href="@{/jquery/jquery-ui.css}"> -->
+
+<!-- </head> -->
 <head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
-          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <style>
+        .accordion-button::after {
+            display: none;
+        }
+    </style>
 </head>
+
 <body>
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <div class="container-fluid">
-        <a class="navbar-brand" href="#">Navbar</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav me-auto mb-2 mb-l g-0">
-                <li class="nav-item">
-                    <a class="nav-link active" aria-current="page" href="#">Home</a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="#">Link</a>
-                </li>
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                       data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
-                    </a>
-                    <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
-                        <li><a class="dropdown-item" href="#">Another action</a></li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-                        <li><a class="dropdown-item" href="#">Something else here</a></li>
-                    </ul>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Disabled</a>
-                </li>
-            </ul>
-            <form class="d-flex">
-                <input class="form-control me-2" type="search" placeholder="Search" aria-label="Search">
-                <button class="btn btn-outline-success" type="submit">Search</button>
-            </form>
+
+<div layout:fragment="contents">
+    <!--begin::Row-->
+    <div class="row g-5 g-lg-10">
+        <!--begin::Col-->
+        <div class="col-xl-4 mb-xl-10">
+            <!--begin::Mixed Widget 18-->
+            <div class="card h-md-100">
+                <!--begin::Beader-->
+                <div class="card-header border-0 py-5 bg-primary">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="card-label fw-bolder fs-3 mb-1 text-white">CellPay Report</span>
+                    </h3>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body p-0 d-flex flex-column">
+                    <!--begin::Items-->
+                    <div class="card-px pt-5 pb-10 flex-grow-1">
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4"
+                             sec:authorize="hasAnyRole('SUPER_ADMIN','VIEW_BANKS')">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5 bg-light-primary">
+									<span class="symbol-label">
+										<i class="fas fa-university fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/banks}" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Banks</a>
+                                </div>
+                                <span class="badge badge-primary fw-bolder my-2" th:text="${banks}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fas fa-users fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Total
+                                        Registration</a>
+                                </div>
+                                <span class="badge badge-primary fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(totalRegistration, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fab fa-weebly fs-2 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Weekly
+                                        Registration</a>
+                                </div>
+                                <span class="badge badge-primary fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(weeklyRegistration, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fab fa-medium-m fs-2 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a href="#" class="text-gray-800 text-hover-primary fs-6 fw-bolder">Monthly
+                                        Registration</a>
+                                </div>
+                                <span class="badge badge-primary fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(monthlyRegistration, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+	 								<span class="symbol-label">
+										<i class="fas fa-user fs-2 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/membersReport}"
+                                       class="text-gray-800 text-hover-primary fs-6 fw-bolder">Members Report</a>
+                                </div>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                    </div>
+                    <!--end::Items-->
+                </div>
+                <!--end::Body-->
+            </div>
+            <!--end::Mixed Widget 18-->
         </div>
+        <!--end::Col-->
+        <!--begin::Col-->
+        <div class="col-xl-4 mb-xl-10">
+            <!--begin::Mixed Widget 18-->
+            <div class="card h-md-100">
+                <!--begin::Beader-->
+                <div class="card-header border-0 py-5 bg-danger">
+                    <h3 class="card-title align-items-start flex-column">
+                        <span class="card-label fw-bolder fs-3 mb-1 text-white">CRM Report</span>
+                    </h3>
+                </div>
+                <!--end::Header-->
+                <!--begin::Body-->
+                <div class="card-body p-0 d-flex flex-column">
+                    <!--begin::Items-->
+                    <div class="card-px pt-5 pb-10 flex-grow-1">
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4"
+                             sec:authorize="hasAnyAuthority('SUPER_ADMIN','VIEW_KYC_REPORT_COUNT')">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fas fa-clipboard fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/kycReport-count}"
+                                       class="text-gray-800 text-hover-primary fs-6 fw-bolder">KYC Report</a>
+                                </div>
+                                <span class="badge badge-warning fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(kycReportCount, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4"
+                             sec:authorize="hasAnyAuthority('SUPER_ADMIN','VIEW_APPROVED_COUNT')">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fas fa-check-double fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/approve-count}"
+                                       class="text-gray-800 text-hover-primary fs-6 fw-bolder">Approvals</a>
+                                </div>
+                                <span class="badge badge-warning fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(approvalCount, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4"
+                             sec:authorize="hasAnyAuthority('SUPER_ADMIN','VIEW_DENIAL_COUNT')">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fas fa-times-circle fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/denial-count}"
+                                       class="text-gray-800 text-hover-primary fs-6 fw-bolder">Denials</a>
+                                </div>
+                                <span class="badge badge-warning fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(denialCount, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4"
+                             sec:authorize="hasAnyAuthority('SUPER_ADMIN','VIEW_FLAG_COUNT')">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fas fa-flag fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/flag-count}"
+                                       class="text-gray-800 text-hover-primary fs-6 fw-bolder">Flags</a>
+                                </div>
+                                <span class="badge badge-warning fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(flagCount, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                        <!--begin::Item-->
+                        <div class="d-flex align-items-sm-center mb-4"
+                             sec:authorize="hasAnyAuthority('SUPER_ADMIN','VIEW_DENIAL_COMMENT_COUNT')">
+                            <!--begin::Symbol-->
+                            <div class="symbol symbol-40px me-5">
+									<span class="symbol-label">
+										<i class="fas fa-comment fs-1 align-self-center"></i>
+									</span>
+                            </div>
+                            <!--end::Symbol-->
+                            <!--begin::Section-->
+                            <div class="d-flex align-items-center flex-row-fluid flex-wrap">
+                                <div class="flex-grow-1 me-2">
+                                    <a th:href="@{/crm/comment-count}"
+                                       class="text-gray-800 text-hover-primary fs-6 fw-bolder">Denials Comments</a>
+                                </div>
+                                <span class="badge badge-warning fw-bolder my-2"
+                                      th:text="${#numbers.formatDecimal(denialCommentCount, 0, 'COMMA', 0, 'POINT')}"></span>
+                            </div>
+                            <!--end::Section-->
+                        </div>
+                        <!--end::Item-->
+                    </div>
+                    <!--end::Items-->
+                </div>
+                <!--end::Body-->
+            </div>
+            <!--end::Mixed Widget 18-->
+        </div>
+        <!--end::Col-->
     </div>
-</nav>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-        crossorigin="anonymous"></script>
+    <!--end::Row-->
+
+</div>
+
+<div layout:fragment="content-scripts">
+</div>
+
 </body>
+
 </html>

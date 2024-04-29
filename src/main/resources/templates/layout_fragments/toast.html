@@ -1,0 +1,25 @@
+<!--begin::Toast-->
+<div class="position-fixed bottom-0 end-0 p-3" th:style="|z-index:1000!important;|" th:fragment="toast"
+	xmlns:th="http://www.thymeleaf.org">
+	<div id="kt_docs_toast_toggle" class="toast bottom-0 end-0" role="alert" aria-live="assertive" aria-atomic="true"
+		data-bs-delay="15000">
+		<div class="toast-header">
+			<!--begin::Svg Icon | path: icons/duotune/abstract/abs020.svg-->
+			<span class="svg-icon svg-icon-2 svg-icon-danger me-3">
+				<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none">
+					<path d="M17.302 11.35L12.002 20.55H21.202C21.802 20.55 22.202 19.85 21.902 19.35L17.302 11.35Z"
+						fill="black" />
+					<path opacity="0.3"
+						d="M12.002 20.55H2.802C2.202 20.55 1.80202 19.85 2.10202 19.35L6.70203 11.45L12.002 20.55ZM11.302 3.45L6.70203 11.35H17.302L12.702 3.45C12.402 2.85 11.602 2.85 11.302 3.45Z"
+						fill="black" />
+				</svg>
+			</span>
+			<!--end::Svg Icon-->
+			<strong class="me-auto" th:text="${webResponse.status} ? 'SUCCESS' : 'ERROR'">Keenthemes</strong>
+			<small>just now</small>
+			<button type="button" class="btn-close" data-bs-dismiss="toast" aria-label="Close"></button>
+		</div>
+		<div class="toast-body" th:text="${webResponse.message}">Hello, world! This is a toast message.</div>
+	</div>
+</div>
+<!--end::Toast-->

@@ -41,13 +41,17 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request -> {
+                    request.requestMatchers("/base/**").permitAll();
                     request.requestMatchers("/assets/**").permitAll();
                     request.requestMatchers("/super").permitAll();
-                    request.requestMatchers("/rest/**").hasAnyRole("SUPER_ADMIN", "ADMIN");
+                    request.requestMatchers("/web/**").hasAnyRole("SUPER_ADMIN", "ADMIN");
                     request.anyRequest().authenticated();
                 })
                 .formLogin(httpSecurityFormLoginConfigurer -> {
-                    httpSecurityFormLoginConfigurer.loginPage("/login").permitAll();
+                    httpSecurityFormLoginConfigurer.loginPage("/login")
+                            .loginProcessingUrl("/base/login")
+                        //    .defaultSuccessUrl("/web/home")
+                        .permitAll();
                 })
                 .build();
     }
