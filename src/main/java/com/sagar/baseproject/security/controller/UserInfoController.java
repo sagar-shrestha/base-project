@@ -18,13 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 public class UserInfoController {
 
     private final UserInfoService userInfoService;
-   // private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
   //  @PreAuthorize("hasAuthority('SUPER_SUPER')")
     @PostMapping
     public ResponseEntity<GlobalApiResponse> saveUserInfo(@RequestBody UserInfo userInfo) {
         String password = userInfo.getPassword();
-      //  userInfo.setPassword(bCryptPasswordEncoder.encode(password));
+        userInfo.setPassword(bCryptPasswordEncoder.encode(password));
         userInfoService.saveUserInfo(userInfo);
         return ResponseEntity.ok(GlobalApiResponse.builder()
                 .code(HttpStatus.CREATED.value())
